@@ -1,5 +1,6 @@
+import 'package:destini_app/storyBrain.dart';
 import 'package:flutter/material.dart';
-
+StoryBrain brain = StoryBrain();
 void main() => runApp(destiniApp());
 
 class destiniApp extends StatelessWidget {
@@ -37,11 +38,12 @@ class _StoryPageState extends State<StoryPage> {
                 flex: 4,
                 child: Center(
                   child: Text(
-                    'Hi',
+                    brain.getStory(),textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
+
                     ),
                   ),
                 ),
@@ -49,20 +51,34 @@ class _StoryPageState extends State<StoryPage> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: FlatButton(
-                    color: Colors.red,
-                    child: Text('Hello'),
-                    onPressed: () {},
+                  child: Visibility(
+                    visible: brain.buttonShouldBeVisible(),
+                    child: FlatButton(
+                      color: Colors.red,
+                      child: Text(brain.getChoice1()),
+                      onPressed: () {
+                        setState(() {
+                          brain.nextStory(1);
+                        });
+                      },
+                    ),
                   ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: FlatButton(
-                    color: Colors.red,
-                    child: Text('Hello'),
-                    onPressed: () {},
+                  child: Visibility(
+                    visible: brain.buttonShouldBeVisible(),
+                    child: FlatButton(
+                      color: Colors.red,
+                      child: Text(brain.getChoice2()),
+                      onPressed: () {
+                        setState(() {
+                          brain.nextStory(2);
+                        });
+                      },
+                    ),
                   ),
                 ),
               )
